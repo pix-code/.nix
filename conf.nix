@@ -84,6 +84,8 @@
       libreoffice
       krita
       libqalculate
+      quickshell
+      fuzzel
     ];
   };
 
