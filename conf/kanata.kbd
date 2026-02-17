@@ -1,0 +1,85 @@
+(defcfg
+    process-unmapped-keys yes
+    linux-dev /dev/input/by-path/platform-i8042-serio-0-event-kbd
+)
+
+(defvar
+    tap 100
+    hold 100
+)
+
+(defalias
+    cmk (layer-switch colemak)
+    qrt (layer-switch qwerty)
+    nmd (layer-switch nomod)
+    cap (multi f24 (tap-hold-press $tap $hold esc (layer-while-held ext)))
+    tab (multi f24 (tap-hold-press $tap $hold tab lsft))
+    spn (multi f24 (tap-hold-press $tap $hold ' (multi lsft lctl lmet lalt)))
+)
+
+(deflocalkeys-linux
+    # 191
+)
+
+;;(defsrc
+;;    esc  F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  del
+;;    grv  1    2    3    4    5    6    =    7    8    9    0    -    bspc
+;;    tab  q    w    f    p    b    [    j    l    u    y    ;    /
+;;    caps a    r    s    t    g    ]    m    n    e    i    o    '    ret
+;;    lsft z    x    c    d    v    \    #    k    h    ,    .    rsft up
+;;    lctl      lmet lalt           spc            ralt rctl      left down rght
+;;)
+
+(defsrc
+    esc  F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  del
+    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+    lsft <    z    x    c    v    b    n    m    ,    .    /    rsft up
+    lctl      lmet lalt           spc            ralt rctl      left down rght
+)
+
+(deflayer colemak
+    @cap F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  del
+    grv  1    2    3    4    5    6    =    7    8    9    0    -    bspc
+    tab  q    w    f    p    b    [    j    l    u    y    ;    /
+    @cap a    r    s    t    g    ]    m    n    e    i    o    @spn ret
+    @tab z    x    c    d    v    \    =    k    h    ,    .    rsft up
+    lctl      lmet lalt           spc            ralt rctl      left down rght
+)
+
+(deflayer ext
+    lrld @cmk @qrt @nmd _    _    _    _    _    _    _    _    _    caps
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    home up   end  _    _
+    _    lalt lsft lmet lctl _    _    M-m  left down rght bspc _    _
+    _    _    _    _    M-d  _    _    _    M-k  M-h  _    _    _    _
+    _         _    _              ret            _    _         _    _    _
+)
+
+(deflayer qwerty
+    @cap F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  del
+    grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+    lsft <    z    x    c    v    b    n    m    ,    .    /    rsft up
+    lctl      lmet lalt           spc            ralt rctl      left down rght
+)
+
+(deflayer nomod
+    @cap F1   F2   F3   F4   F5   F6   F7   F8   F9   F10  F11  F12  del
+    grv  1    2    3    4    5    6    =    7    8    9    0    -    bspc
+    tab  q    w    f    p    b    [    j    l    u    y    ;    /
+    caps a    r    s    t    g    ]    m    n    e    i    o    '    ret
+    lsft z    x    c    d    v    \    =    k    h    ,    .    rsft up
+    lctl      lmet lalt           spc            ralt rctl      left down rght
+)
+
+;;(deflayer empty
+;;    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;    _         _    _              _              _    _         _    _    _
+;;)
