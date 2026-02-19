@@ -2,6 +2,11 @@
   imports = [ ./hardware.nix ];
 
   boot = {
+    # plymouth = {
+      # enable = true;
+      # theme = "breeze";
+      # themePackages = [ pkgs.kdePackages.breeze-plymouth ];
+    # };
     loader = {
       timeout = 0;
       systemd-boot.enable = true;
@@ -20,6 +25,24 @@
 
   security.rtkit.enable = true;
 
+  # systemd.user.services.plasma-powerdevil = {
+    # unitConfig = {
+      # Description = "Powerdevil";
+      # PartOf = "graphical-session.target";
+      # After = "plasma-core.target";
+    # };
+
+    # serviceConfig = {
+      # ExecStart = pkgs.powerdevil/libexec/org_kde_powerdevil;
+      # Type = "dbus";
+      # BusName = "org.kde.Solid.PowerManagement";
+      # TimeoutStopSec = "5sec";
+      # Slice = "background.slice";
+      # Restart = "on-failure";
+      # Environment = "POWERDEVIL_NO_DDCUTIL = 1";
+    # };
+  # };
+
   services = {
     desktopManager.plasma6.enable = true;
     kanata = {
@@ -28,16 +51,18 @@
     };
     pipewire = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
       pulse.enable = true;
-      #jack.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
     };
     getty = {
-      autologinUser = "anon";
       autologinOnce = true;
+      autologinUser = "anon";
     };
     tailscale.enable = true;
+    fprintd.enable = true;
   };
 
   programs = {
@@ -56,8 +81,8 @@
         rebuild = "nh os switch ~/.nix";
       };
     };
-    niri.enable = true;
     thunderbird.enable = true;
+    # niri.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -67,8 +92,9 @@
       elisa
       gwenview
       okular
-      khelpcenter
-      kinfocenter
+      discover
+      # khelpcenter
+      # kinfocenter
     ];
     systemPackages = with pkgs; [
       git
@@ -77,7 +103,7 @@
       foot
       signal-desktop
       zed-editor
-      librewolf
+      (librewolf.override {cfg.enablePlasmaBrowserIntegration= true; })
       obsidian
       vesktop
       spotify
@@ -86,6 +112,17 @@
       libqalculate
       quickshell
       fuzzel
+      imv
+      yazi
+      mpv
+      bat
+      eza
+      ffmpeg
+      imagemagick
+      ungoogled-chromium
+      kdePackages.yakuake
+      freetube
+      easyeffects
     ];
   };
 

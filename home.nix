@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   programs.home-manager.enable = true;
+  nixpkgs.config.allowUnfree = true;
+
   home = {
     username = "anon";
     homeDirectory = "/home/anon";
@@ -29,6 +29,10 @@
 
     stateVersion = "25.11";
   };
+
+  # systemd.user.sessionVariables = {
+    # "POWERDEVIL_NO_DDCUTIL" = "1";
+  # };
 
   xdg.userDirs = {
     enable = true;
