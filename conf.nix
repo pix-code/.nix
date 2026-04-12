@@ -44,6 +44,7 @@
   # };
 
   services = {
+    # displayManager.sddm.enable = true;
     desktopManager.plasma6.enable = true;
     kanata = {
       enable = true;
@@ -82,20 +83,21 @@
       };
     };
     thunderbird.enable = true;
-    # niri.enable = true;
+    niri.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
+
   environment = {
-    plasma6.excludePackages = with pkgs.kdePackages; [
-      kate
-      elisa
-      gwenview
-      okular
-      discover
+    # plasma6.excludePackages = with pkgs.kdePackages; [
+      # kate
+      # elisa
+      # gwenview
+      # okular
+      # discover
       # khelpcenter
       # kinfocenter
-    ];
+    # ];
     systemPackages = with pkgs; [
       git
       nh
@@ -123,6 +125,10 @@
       kdePackages.yakuake
       freetube
       easyeffects
+      wayland-utils
+      wl-clipboard
+      hardinfo2
+      vscodium
     ];
   };
 
